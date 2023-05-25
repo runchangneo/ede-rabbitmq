@@ -1,0 +1,21 @@
+version: "3"
+
+services:
+  rabbitmq3:
+    environment:
+      - RABBITMQ_DEFAULT_USER=${RABBITMQ3_DEFAULT_USER}
+      - RABBITMQ_DEFAULT_PASS=${RABBITMQ3_DEFAULT_PASS}
+    image: rabbitmq:${RABBITMQ3_VERSION}-management-alpine
+    container_name: rabbitmq3
+    ports:
+      - ${RABBITMQ3_PORT}:5672
+      - ${RABBITMQ3_MANAGEMENT_PORT}:15672
+    volumes:
+      - ${RABBITMQ3_DIR}/data:/var/lib/rabbitmq  
+    restart: ${RABBITMQ3_RESTART_POLICY}
+    networks:
+      - dev
+
+networks:
+  dev:
+    external: true
